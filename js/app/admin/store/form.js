@@ -144,6 +144,28 @@ $('#store_delete').on('click', e => {
   }
 })
 
+// Enable/disable packagesRequired checkbox based on packageSet selection
+const packageSetSelect = document.querySelector('#store_packageSet')
+const packagesRequiredCheckbox = document.querySelector('#store_packagesRequired')
+
+if (packageSetSelect && packagesRequiredCheckbox) {
+  const updatePackagesRequiredState = () => {
+    const hasPackageSet = packageSetSelect.value !== ''
+    packagesRequiredCheckbox.disabled = !hasPackageSet
+    
+    // If no package set is selected, uncheck the checkbox
+    if (!hasPackageSet) {
+      packagesRequiredCheckbox.checked = false
+    }
+  }
+  
+  // Set initial state
+  updatePackagesRequiredState()
+  
+  // Update state when packageSet changes
+  packageSetSelect.addEventListener('change', updatePackagesRequiredState)
+}
+
 document.querySelectorAll('[data-widget="delivery-perimeter-expression"]').forEach(el => {
 
   const input = el.querySelector('input[type="hidden"]')
