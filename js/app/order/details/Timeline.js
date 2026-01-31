@@ -55,7 +55,9 @@ export default ({ order }) => {
 
     const nextEventMapping = {
       'order:created': { active: true, spinner: true, title: i18n.t('ORDER_TIMELINE_AFTER_CREATED_TITLE'), description: i18n.t('ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION') },
-      'order:accepted': { active: true, title: i18n.t('ORDER_TIMELINE_AFTER_ACCEPTED_TITLE'), description: i18n.t('ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION') },
+      'order:accepted': order.takeaway
+        ? { active: true, title: i18n.t('ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION'), description: i18n.t('ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION') }
+        : { active: true, title: i18n.t('ORDER_TIMELINE_AFTER_ACCEPTED_TITLE'), description: i18n.t('ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION') },
       'order:picked': { active: true, title: i18n.t('ORDER_TIMELINE_AFTER_PICKED_TITLE'), description: i18n.t('ORDER_TIMELINE_AFTER_PICKED_DESCRIPTION') },
     };
 

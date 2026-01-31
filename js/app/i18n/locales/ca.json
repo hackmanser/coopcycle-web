@@ -75,6 +75,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Comanda cancel·lada",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "El restaurant ara ha de preparar la teva comanda",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "T'informarem quan un mensaka hagi recollit la teva comanda",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "El restaurant està preparant la teva comanda",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "La teva comanda estarà a punt per recollir aviat",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "Comanda pendent de confirmació",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "El restaurant ha de confirmar la teva comanda. En cas que sigui rebutjada, no rebràs cap càrrec en la teva targeta",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "La mensaka ja ve de camí!",

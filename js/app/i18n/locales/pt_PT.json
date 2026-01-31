@@ -130,6 +130,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Pedido cancelado",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "O restaurante agora precisa de preparar o seu pedido",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "Quando o estafeta recolher o seu pedido, informá-lo-emos",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "O restaurante está a preparar o seu pedido",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "O seu pedido estará pronto para levantamento em breve",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "O pedido aguarda confirmação",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "O restaurante tem de confirmar o seu pedido. Em caso de recusa, nenhum valor lhe será debitado",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "O estafeta está a chegar!",

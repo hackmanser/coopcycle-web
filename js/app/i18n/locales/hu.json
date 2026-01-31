@@ -119,6 +119,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Rendelés törölve",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "Az étterem most készíti a rendelésed",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "Értesítünk amint a futár felveszi a rendelésed",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "Az étterem készíti a rendelésed",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "A rendelésed hamarosan készen áll átvételre",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "A rendelés elfogadásra vár",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "Az étteremnek el kell fogadnia a rendelésed. Amennyiben visszautasítja, az összeg nem lesz levonva a kártyádról",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "A futár érkezik!",

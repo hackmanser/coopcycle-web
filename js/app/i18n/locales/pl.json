@@ -66,6 +66,8 @@
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "Zamówienie czeka na potwierdzenie",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "Poinformujemy cię, gdy kurier/ka odbierze Twoje zamówienie",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "Restauracja musi teraz przygotować twoje zamówienie",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "Restauracja przygotowuje Twoje zamówienie",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "Twoje zamówienie będzie wkrótce gotowe do odbioru",
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Zamówienie anulowane",
         "ORDER_TIMELINE_DROPPED_TITLE": "{{date}} Zamówienie dostarczone",
         "ORDER_TIMELINE_PICKED_TITLE": "{{date}} Zamówienie odebrane",

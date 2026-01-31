@@ -166,6 +166,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Commande annulée",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "Le restaurant doit maintenant préparer votre commande",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "Nous vous tiendrons informé quand le livreur aura récupéré votre commande",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "Le restaurant prépare votre commande",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "Votre commande sera bientôt prête à être retirée",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "Commande en attente de validation",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "Le restaurateur doit valider votre commande. Dans le cas où votre commande serait refusée vous ne serez pas débité",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "Votre livreur arrive !",

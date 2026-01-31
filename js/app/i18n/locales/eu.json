@@ -135,6 +135,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Eskaera utzita",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "Jatetxeak zure eskaera prestatu behar du",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "Mezulariak eskaera batzen duenean jakinaraziko zaitugu",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "Jatetxeak zure eskaera prestatzen ari da",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "Zure eskaera laster egongo da prest jasotzeko",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "Eskaera berrespena itxaroten ari da",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "Jatetexeak zure eskaera berretsi behar du. Ukatzen badu ez zaizu kreditu-txartela kobratuko",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "Mezularia bidean da!",

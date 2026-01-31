@@ -154,6 +154,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Pedido cancelado",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "El restaurante ahora debe preparar tu pedido",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "Te informaremos cuando el mensajero haya recuperado tu pedido",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "El restaurante está preparando tu pedido",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "Tu pedido estará listo para recoger pronto",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "Pedido en espera de confirmación",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "El restaurante tiene que confirmar su pedido. En caso de rechazo recibirá la devolución del valor cargado de la su tarjeta en algunos días laborales, dependiendo de tu banco",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "¡El mensajero está de camino!",

@@ -273,6 +273,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Order cancelled",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "The restaurant now needs to prepare your order",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "We will keep you updated when the courier picks your order",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "The restaurant is preparing your order",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "Your order will be ready for pickup soon",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "Order is waiting for confirmation",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "The restaurant has to confirm your order. In case of refusal no amount will be debited from your card",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "The courier is coming!",

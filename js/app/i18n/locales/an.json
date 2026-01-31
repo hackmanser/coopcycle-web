@@ -133,6 +133,8 @@
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Pediu cancelau",
         "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE": "Lo restaurant agora ha d'aprestar lo tuyo pediu",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "T'informaremos quan lo mensachero haiga reculliu lo tuyo pediu",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "Lo restaurant ye aprestando lo tuyo pediu",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "Lo tuyo pediu será parau ta replegar en breu",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "Pediu aguardando confirmación",
         "ORDER_TIMELINE_AFTER_CREATED_DESCRIPTION": "Lo restaurant ha de confirmar lo suyo pediu. En caso de refuse, no se cargará garra importe a la suya tarcheta",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "Lo mensachero ye de camín!",

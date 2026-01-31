@@ -93,6 +93,8 @@
         "ORDER_TIMELINE_DROPPED_TITLE": "{{date}} Ordine consegnato",
         "ORDER_TIMELINE_CANCELLED_TITLE": "{{date}} Ordine cancellato",
         "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION": "Ti informeremo quando il corriere ritirerà il tuo ordine",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_TITLE_COLLECTION": "Il ristorante sta preparando il tuo ordine",
+        "ORDER_TIMELINE_AFTER_ACCEPTED_DESCRIPTION_COLLECTION": "Il tuo ordine sarà presto pronto per il ritiro",
         "ORDER_TIMELINE_AFTER_CREATED_TITLE": "L'ordine è in attesa di conferma",
         "ORDER_TIMELINE_AFTER_PICKED_TITLE": "Il corriere è in arrivo!",
         "RULE_PICKER_LINE_DROPOFF_ADDRESS": "Indirizzo di consegna",
