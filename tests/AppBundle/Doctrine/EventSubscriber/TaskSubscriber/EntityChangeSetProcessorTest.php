@@ -154,4 +154,55 @@ class EntityChangeSetProcessorTest extends TestCase
 
         $this->assertFalse($taskListForBob->containsTask($task));
     }
+
+    public function testTaskDateChangeMovesTaskListItem()
+    {
+        $bob = new User();
+        $bob->setUsername('bob');
+
+        $oldDate = new \DateTime('2024-01-10 10:00:00');
+        $newDate = new \DateTime('2024-01-11 10:00:00');
+
+        $task = new Task();
+        $task->assignTo($bob);
+        $task->setBefore($newDate);
+
+        $taskListForOldDate = new TaskList();
+        $taskListForOldDate->setCourier($bob);
+        $taskListForOldDate->setDate($oldDate);
+
+        $item = new Item();
+        $item->setTask($task);
+        $item->setPosition(count($taskListForOldDate->getItems()));
+        $taskListForOldDate->addItem($item);
+
+        $taskListForNewDate = new TaskList();
+        $taskListForNewDate->setCourier($bob);
+        $taskListForNewDate->setDate($newDate);
+
+        $this->taskListProvider
+            ->getTaskListForUserAndDate($newDate, $bob)
+            ->willReturn($taskListForNewDate);
+
+        $repository = $this->prophesize(\Doctrine\Persistence\ObjectRepository::class);
+        $repository
+            ->findOneBy([
+                'date' => $oldDate,
+                'courier' => $bob,
+            ])
+            ->willReturn($taskListForOldDate);
+
+        $this->entityManager
+            ->getRepository(TaskList::class)
+            ->willReturn($repository->reveal());
+
+        $processor = new EntityChangeSetProcessor($this->taskListProvider->reveal(), null, $this->entityManager->reveal());
+        $processor->process($task, [
+            'assignedTo' => [ $bob, $bob ],
+            'doneBefore' => [ $oldDate, $newDate ]
+        ]);
+
+        $this->assertFalse($taskListForOldDate->containsTask($task));
+        $this->assertTrue($taskListForNewDate->containsTask($task));
+    }
 }

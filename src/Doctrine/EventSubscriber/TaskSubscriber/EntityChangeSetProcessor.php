@@ -5,6 +5,7 @@ namespace AppBundle\Doctrine\EventSubscriber\TaskSubscriber;
 use AppBundle\Domain\Task\Event\TaskAssigned;
 use AppBundle\Domain\Task\Event\TaskUnassigned;
 use AppBundle\Entity\Task;
+use AppBundle\Entity\TaskList;
 use AppBundle\Entity\TaskList\Item;
 use AppBundle\Entity\Tour;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,14 +17,17 @@ class EntityChangeSetProcessor
     public $recordedMessages = [];
     private $taskListProvider;
     private $logger;
+    private $entityManager;
 
     public function __construct(
         TaskListProvider $taskListProvider,
-        ?LoggerInterface $logger = null
+        ?LoggerInterface $logger = null,
+        ?EntityManagerInterface $entityManager = null
     )
     {
         $this->taskListProvider = $taskListProvider;
         $this->logger = $logger ? $logger : new NullLogger();
+        $this->entityManager = $entityManager;
     }
 
     public function eraseMessages() {
@@ -34,7 +38,12 @@ class EntityChangeSetProcessor
     {
         $this->logger->debug(sprintf('Began processing Task#%d', $task->getId()));
 
+        $dateChange = $this->getDateChange($entityChangeSet);
+
         if (!isset($entityChangeSet['assignedTo'])) {
+            if ($dateChange) {
+                $this->moveTaskListItemForDateChange($task, $dateChange['oldDate'], $dateChange['newDate']);
+            }
             return;
         }
 
@@ -52,6 +61,9 @@ class EntityChangeSetProcessor
 
             if ($wasAssignedToSameUser) {
                 $this->logger->debug(sprintf('Task#%d was already assigned to %s', $task->getId(), $oldValue->getUsername()));
+                if ($dateChange) {
+                    $this->moveTaskListItemForDateChange($task, $dateChange['oldDate'], $dateChange['newDate']);
+                }
             }
 
             if (!$wasAssigned || !$wasAssignedToSameUser) {
@@ -65,9 +77,13 @@ class EntityChangeSetProcessor
                 if ($wasAssigned && !$wasAssignedToSameUser) {
                     $this->logger->debug(sprintf('Removing Task#%d from previous TaskList', $task->getId()));
 
-                    $oldTaskList = $this->taskListProvider->getTaskList($task, $oldValue);
+                    $oldTaskList = $dateChange
+                        ? $this->findTaskListForUserAndDate($dateChange['oldDate'], $oldValue)
+                        : $this->taskListProvider->getTaskList($task, $oldValue);
                     // FIXME : this prevent us to enforce uniqueness on task_list_item.task_id, because in this case we cannot add and remove the task_list_item pointing to the same task in the same transaction
-                    $oldTaskList->removeTask($task);
+                    if ($oldTaskList) {
+                        $oldTaskList->removeTask($task);
+                    }
                 }
 
                 // sync $task.assignedTo info TO tasklist (see explanation above)
@@ -131,4 +147,89 @@ class EntityChangeSetProcessor
                 }
             }
         }
+    }
+
+    private function getDateChange(array $entityChangeSet): ?array
+    {
+        if (!isset($entityChangeSet['doneBefore'])) {
+            return null;
+        }
+
+        [ $oldBefore, $newBefore ] = $entityChangeSet['doneBefore'];
+
+        if (!$oldBefore instanceof \DateTimeInterface || !$newBefore instanceof \DateTimeInterface) {
+            return null;
+        }
+
+        if ($oldBefore->format('Y-m-d') === $newBefore->format('Y-m-d')) {
+            return null;
+        }
+
+        return [
+            'oldDate' => \DateTime::createFromInterface($oldBefore),
+            'newDate' => \DateTime::createFromInterface($newBefore),
+        ];
+    }
+
+    private function moveTaskListItemForDateChange(Task $task, \DateTime $oldDate, \DateTime $newDate): void
+    {
+        $courier = $task->getAssignedCourier();
+        if (null === $courier) {
+            return;
+        }
+
+        if ($this->isTaskInTour($task)) {
+            return;
+        }
+
+        $oldTaskList = $this->findTaskListForUserAndDate($oldDate, $courier);
+        if (null === $oldTaskList) {
+            return;
+        }
+
+        if (!$oldTaskList->containsTask($task)) {
+            return;
+        }
+
+        $newTaskList = $this->taskListProvider->getTaskListForUserAndDate($newDate, $courier);
+
+        if ($oldTaskList !== $newTaskList) {
+            $oldTaskList->removeTask($task);
+        }
+
+        if (!$newTaskList->containsTask($task)) {
+            $item = new Item();
+            $item->setTask($task);
+            $item->setPosition($newTaskList->getItems()->count());
+            $newTaskList->addItem($item);
+        }
+    }
+
+    private function findTaskListForUserAndDate(\DateTime $date, $courier): ?TaskList
+    {
+        if (null === $this->entityManager) {
+            return null;
+        }
+
+        $repository = $this->entityManager->getRepository(TaskList::class);
+
+        return $repository->findOneBy([
+            'date' => $date,
+            'courier' => $courier,
+        ]);
+    }
+
+    private function isTaskInTour(Task $task): bool
+    {
+        if (null === $this->entityManager) {
+            return false;
+        }
+
+        $tourRepository = $this->entityManager->getRepository(Tour::class);
+        if (!method_exists($tourRepository, 'findOneByTask')) {
+            return false;
+        }
+
+        return null !== $tourRepository->findOneByTask($task);
+    }
 }
