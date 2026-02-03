@@ -205,4 +205,56 @@ class EntityChangeSetProcessorTest extends TestCase
         $this->assertFalse($taskListForOldDate->containsTask($task));
         $this->assertTrue($taskListForNewDate->containsTask($task));
     }
+
+    public function testTaskDateChangeDoesNotMoveWhenAssignedOnSet()
+    {
+        $bob = new User();
+        $bob->setUsername('bob');
+
+        $assignedOn = new \DateTime('2024-01-09 10:00:00');
+        $oldDate = new \DateTime('2024-01-10 10:00:00');
+        $newDate = new \DateTime('2024-01-11 10:00:00');
+
+        $task = new Task();
+        $task->assignTo($bob, $assignedOn);
+        $task->setBefore($newDate);
+
+        $taskListForOldDate = new TaskList();
+        $taskListForOldDate->setCourier($bob);
+        $taskListForOldDate->setDate($oldDate);
+
+        $item = new Item();
+        $item->setTask($task);
+        $item->setPosition(count($taskListForOldDate->getItems()));
+        $taskListForOldDate->addItem($item);
+
+        $taskListForNewDate = new TaskList();
+        $taskListForNewDate->setCourier($bob);
+        $taskListForNewDate->setDate($newDate);
+
+        $this->taskListProvider
+            ->getTaskListForUserAndDate($newDate, $bob)
+            ->willReturn($taskListForNewDate);
+
+        $repository = $this->prophesize(\Doctrine\Persistence\ObjectRepository::class);
+        $repository
+            ->findOneBy([
+                'date' => $oldDate,
+                'courier' => $bob,
+            ])
+            ->willReturn($taskListForOldDate);
+
+        $this->entityManager
+            ->getRepository(TaskList::class)
+            ->willReturn($repository->reveal());
+
+        $processor = new EntityChangeSetProcessor($this->taskListProvider->reveal(), null, $this->entityManager->reveal());
+        $processor->process($task, [
+            'assignedTo' => [ $bob, $bob ],
+            'doneBefore' => [ $oldDate, $newDate ]
+        ]);
+
+        $this->assertTrue($taskListForOldDate->containsTask($task));
+        $this->assertFalse($taskListForNewDate->containsTask($task));
+    }
 }

@@ -77,7 +77,7 @@ class EntityChangeSetProcessor
                 if ($wasAssigned && !$wasAssignedToSameUser) {
                     $this->logger->debug(sprintf('Removing Task#%d from previous TaskList', $task->getId()));
 
-                    $oldTaskList = $dateChange
+                    $oldTaskList = $dateChange && null === $task->getAssignedOn()
                         ? $this->findTaskListForUserAndDate($dateChange['oldDate'], $oldValue)
                         : $this->taskListProvider->getTaskList($task, $oldValue);
                     // FIXME : this prevent us to enforce uniqueness on task_list_item.task_id, because in this case we cannot add and remove the task_list_item pointing to the same task in the same transaction
@@ -173,6 +173,10 @@ class EntityChangeSetProcessor
 
     private function moveTaskListItemForDateChange(Task $task, \DateTime $oldDate, \DateTime $newDate): void
     {
+        if (null !== $task->getAssignedOn()) {
+            return;
+        }
+
         $courier = $task->getAssignedCourier();
         if (null === $courier) {
             return;
